@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JLPT N4 単語カード</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: #eef2ff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      color: #1e293b;
+    }
+    .card {
+      width: 100%;
+      max-width: 600px;
+      height: 320px;
+      perspective: 1000px;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      background: linear-gradient(135deg, #f0f4ff, #d9e6ff);
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+      box-sizing: border-box;
+    }
+    .card-front {
+      color: #111827;
+    }
+    .card-back {
+      background: #3b82f6;
+      color: white;
+      transform: rotateY(180deg);
+      font-size: 20px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .word {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    ruby rt {
+      color: #2563eb;
+      font-weight: 600;
+      font-size: 0.6em;
+    }
+    .reading {
+      font-size: -0px;
+      color: #3b82f6;
+      margin-top: 6px;
+    }
+    #indexInfo {
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #e0e7ff;
+      color: #1e293b;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 0 6px;
+      box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+      transition: background-color 0.3s ease, transform 0.15s ease;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #3b82f6;
+      color: white;
+      transform: scale(1.05);
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JLPT N4 単語カード</h1>
+
+  <div class="card" id="card" title="クリックまたはスペースキーで意味を表示">
+    <div class="card-inner">
+      <div class="card-front">
+        <div class="word" id="wordArea"></div>
+        <div class="reading" id="readingArea"></div>
+      </div>
+      <div class="card-back">
+        <div class="meaning" id="meaningArea"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="indexInfo"></div>
+
+  <div class="button-group">
+    <button id="prevBtn">前へ</button>
+    <button id="flipBtn">意味を表示/非表示</button>
+    <button id="nextBtn">次へ</button>
+    <button id="furiganaBtn">ふりがな表示</button>
+    <button id="showListBtn">📋 全単語一覧</button>
+    <button id="speakBtn">🔊 発音</button>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <select id="autoFlipSelect">
+      <option value="0">⏱️ 自動フリップ: オフ</option>
+      <option value="3000">3秒</option>
+      <option value="5000">5秒</option>
+      <option value="7000">7秒</option>
+    </select>
+    <label><input type="checkbox" id="quizModeToggle"> テストモード</label>
+  </div>
+
+  <!-- 単語一覧モーダル -->
+  <div id="wordListModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:#ffffffee; overflow:auto; padding:20px; z-index:999;">
+    <button id="closeListBtn" style="float:right;">❌ 閉じる</button>
+    <h2>全単語一覧</h2>
+    <ul id="wordList" style="list-style:none; padding:0;"></ul>
+  </div>
+
+  <script>
+ const deck = [   { "word": "必ず", "reading": "かならず", "meaning": "surely / ज़रूर / chắc chắn / обязательно" },
+  { "word": "嬉しい", "reading": "うれしい", "meaning": "happy / खुश / vui / счастливый" },
+  { "word": "悲しい", "reading": "かなしい", "meaning": "sad / दुखी / buồn / грустный" },
+  { "word": "寂しい", "reading": "さびしい", "meaning": "lonely / अकेला / cô đơn / одинокий" },
+  { "word": "素晴らしい", "reading": "すばらしい", "meaning": "wonderful / शानदार / tuyệt vời / замечательный" },
+  { "word": "怖い", "reading": "こわい", "meaning": "scary / डरावना / đáng sợ / страшный" },
+  { "word": "美味しい", "reading": "おいしい", "meaning": "delicious / स्वादिष्ट / ngon / вкусный" },
+  { "word": "深い", "reading": "ふかい", "meaning": "deep / गहरा / sâu / глубокий" },
+  { "word": "浅い", "reading": "あさい", "meaning": "shallow / उथला / nông / мелкий" },
+  { "word": "強い", "reading": "つよい", "meaning": "strong / ताकतवर / mạnh / сильный" },
+  { "word": "弱い", "reading": "よわい", "meaning": "weak / कमजोर / yếu / слабый" },
+  { "word": "硬い", "reading": "かたい", "meaning": "hard / सख्त / cứng / твёрдый" },
+  { "word": "柔らかい", "reading": "やわらかい", "meaning": "soft / मुलायम / mềm / мягкий" },
+  { "word": "煩い", "reading": "うるさい", "meaning": "noisy / शोरगुल वाला / ồn ào / шумный" },
+  { "word": "優しい", "reading": "やさしい", "meaning": "kind / दयालु / tử tế / добрый" },
+  { "word": "厳しい", "reading": "きびしい", "meaning": "strict / सख़्त / nghiêm khắc / строгий" },
+  { "word": "若い", "reading": "わかい", "meaning": "young / युवा / trẻ / молодой" },
+  { "word": "長い", "reading": "ながい", "meaning": "long / लंबा / dài / длинный" },
+  { "word": "短い", "reading": "みじかい", "meaning": "short / छोटा / ngắn / короткий" },
+  { "word": "珍しい", "reading": "めずらしい", "meaning": "rare / दुर्लभ / hiếm / редкий" },
+  { "word": "美しい", "reading": "うつくしい", "meaning": "beautiful / सुंदर / đẹp / красивый" },
+  { "word": "気持ちがいい", "reading": "きもちがいい", "meaning": "feels good / अच्छा लगता है / dễ chịu / приятно" },
+  { "word": "暖かい", "reading": "あたたかい", "meaning": "warm / गरम / ấm / тёплый" },
+  { "word": "涼しい", "reading": "すずしい", "meaning": "cool / ठंडा / mát / прохладный" },
+  { "word": "青い", "reading": "あおい", "meaning": "blue / नीला / xanh / синий" },
+  { "word": "赤い", "reading": "あかい", "meaning": "red / लाल / đỏ / красный" },
+  { "word": "黒い", "reading": "くろい", "meaning": "black / काला / đen / чёрный" },
+  { "word": "白い", "reading": "しろい", "meaning": "white / सफेद / trắng / белый" },
+  { "word": "明るい", "reading": "あかるい", "meaning": "bright / उजला / sáng / светлый" },
+  { "word": "暗い", "reading": "くらい", "meaning": "dark / अंधेरा / tối / тёмный" },
+  { "word": "重い", "reading": "おもい", "meaning": "heavy / भारी / nặng / тяжёлый" },
+  { "word": "軽い", "reading": "かるい", "meaning": "light / हल्का / nhẹ / лёгкий" },
+  { "word": "近い", "reading": "ちかい", "meaning": "near / नजदीक / gần / близкий" },
+  { "word": "遠い", "reading": "とおい", "meaning": "far / दूर / xa / далёкий" },
+  { "word": "頭がいい", "reading": "あたまがいい", "meaning": "smart / समझदार / thông minh / умный" },
+  { "word": "正しい", "reading": "ただしい", "meaning": "correct / सही / đúng / правильный" },
+  { "word": "楽しい", "reading": "たのしい", "meaning": "fun / मज़ेदार / vui / весёлый" },
+  { "word": "広い", "reading": "ひろい", "meaning": "wide / चौड़ा / rộng / широкий" },
+  { "word": "狭い", "reading": "せまい", "meaning": "narrow / संकीर्ण / hẹp / узкий" },
+  { "word": "汚い", "reading": "きたない", "meaning": "dirty / गंदा / bẩn / грязный" },
+  { "word": "羨ましい", "reading": "うらやましい", "meaning": "envious / ईर्ष्यालु / ghen tị / завистливый" },
+  { "word": "少ない", "reading": "すくない", "meaning": "few / कम / ít / мало" },
+  { "word": "気分が悪い", "reading": "きぶんがわるい", "meaning": "feeling sick / बीमार महसूस करना / cảm thấy ốm / чувствовать себя плохо" },
+  { "word": "恥ずかしい", "reading": "はずかしい", "meaning": "embarrassed / शर्मिंदा / xấu hổ / смущённый" },
+  { "word": "都合が悪い", "reading": "つごうがわるい", "meaning": "inconvenient / असुविधाजनक / không thuận tiện / неудобный" },
+  { "word": "眠い", "reading": "ねむい", "meaning": "sleepy / नींद आ रही है / buồn ngủ / сонный" },
+  { "word": "苦い", "reading": "にがい", "meaning": "bitter / कड़वा / đắng / горький" },
+  { "word": "可愛い", "reading": "かわいい", "meaning": "cute / प्यारा / dễ thương / милый" },
+  { "word": "静かな", "reading": "しずかな", "meaning": "quiet / शांत / yên tĩnh / тихий" },
+  { "word": "賑やかな", "reading": "にぎやかな", "meaning": "lively / जीवंत / náo nhiệt / оживлённый" },
+  { "word": "安全な", "reading": "あんぜんな", "meaning": "safe / सुरक्षित / an toàn / безопасный" },
+  { "word": "危険な", "reading": "きけんな", "meaning": "dangerous / खतरनाक / nguy hiểm / опасный" },
+  { "word": "真面目な", "reading": "まじめな", "meaning": "serious / गंभीर / nghiêm túc / серьёзный" },
+  { "word": "必要な", "reading": "ひつような", "meaning": "necessary / आवश्यक / cần thiết / необходимый" },
+  { "word": "嫌な", "reading": "いやな", "meaning": "unpleasant / अप्रिय / khó chịu / неприятный" },
+  { "word": "残念な", "reading": "ざんねんな", "meaning": "regrettable / खेदजनक / đáng tiếc / досадный" },
+  { "word": "親切な", "reading": "しんせつな", "meaning": "kind / दयालु / tử tế / добрый" },
+  { "word": "変な", "reading": "へんな", "meaning": "strange / अजीब / lạ / странный" },
+  { "word": "便利な", "reading": "べんりな", "meaning": "convenient / सुविधाजनक / tiện lợi / удобный" },
+  { "word": "不便な", "reading": "ふべんな", "meaning": "inconvenient / असुविधाजनक / bất tiện / неудобный" },
+  { "word": "特別な", "reading": "とくべつな", "meaning": "special / विशेष / đặc biệt / особенный" },
+  { "word": "有名な", "reading": "ゆうめいな", "meaning": "famous / प्रसिद्ध / nổi tiếng / известный" },
+  { "word": "色々な", "reading": "いろいろな", "meaning": "various / विभिन्न / đa dạng / разнообразный" },
+  { "word": "幸せな", "reading": "しあわせな", "meaning": "happy / खुश / hạnh phúc / счастливый" },
+  { "word": "駄目な", "reading": "だめな", "meaning": "no good / बेकार / không được / плохой" },
+  { "word": "大切な", "reading": "たいせつな", "meaning": "important / महत्वपूर्ण / quan trọng / важный" },
+  { "word": "心配な", "reading": "しんぱいな", "meaning": "worried / चिंतित / lo lắng / озабоченный" },
+  { "word": "貧乏な", "reading": "びんぼうな", "meaning": "poor / गरीब / nghèo / бедный" },
+  { "word": "楽な", "reading": "らくな", "meaning": "easy / आसान / dễ dàng / лёгкий" },
+  { "word": "意地悪な", "reading": "いじわるな", "meaning": "mean / दुष्ट / xấu bụng / злой" },
+  { "word": "無理な", "reading": "むりな", "meaning": "impossible / असम्भव / vô lý / невозможный" },
+  { "word": "無駄な", "reading": "むだな", "meaning": "wasteful / फजुल / lãng phí / бесполезный" },
+  { "word": "熱心な", "reading": "ねっしんな", "meaning": "enthusiastic / उत्साही / nhiệt tình / усердный" },
+  { "word": "十分な", "reading": "じゅうぶんな", "meaning": "enough / पर्याप्त / đủ / достаточный" },
+  { "word": "複雑な", "reading": "ふくざつな", "meaning": "complicated / जटिल / phức tạp / сложный" },
+  { "word": "丁寧な", "reading": "ていねいな", "meaning": "polite / सभ्य / lịch sự / вежливый" },
+  { "word": "失礼な", "reading": "しつれいな", "meaning": "rude / बद्तमीज / vô lễ / грубый" } ];
+
+    let idx = 0;
+    let flipped = false;
+    let showFurigana = true;
+    let autoFlipTimeout = null;
+
+    const card = document.getElementById("card");
+    const wordArea = document.getElementById("wordArea");
+    const readingArea = document.getElementById("readingArea");
+    const meaningArea = document.getElementById("meaningArea");
+    const indexInfo = document.getElementById("indexInfo");
+    const autoFlipSelect = document.getElementById("autoFlipSelect");
+    const quizModeToggle = document.getElementById("quizModeToggle");
+    const furiganaBtn = document.getElementById("furiganaBtn");
+
+    function updateCard() {
+      const current = deck[idx];
+      wordArea.innerHTML = showFurigana
+        ? `<ruby>${current.word}<rt>${current.reading}</rt></ruby>`
+        : current.word;
+      readingArea.textContent = showFurigana ? "" : current.reading;
+
+      if (quizModeToggle.checked) {
+        meaningArea.textContent = "";
+        card.classList.remove("flipped");
+        flipped = false;
+      } else {
+        meaningArea.textContent = current.meaning;
+      }
+
+      indexInfo.textContent = `${idx + 1} / ${deck.length}`;
+      scheduleAutoFlip();
+      updateFuriganaButtonText(); // ボタンのテキスト更新
+    }
+
+    function flipCard() {
+      if (quizModeToggle.checked) return;
+      flipped = !flipped;
+      card.classList.toggle("flipped", flipped);
+    }
+
+    function nextCard() {
+      idx = (idx + 1) % deck.length;
+      flipped = false;
+      card.classList.remove("flipped");
+      updateCard();
+    }
+
+    function prevCard() {
+      idx = (idx - 1 + deck.length) % deck.length;
+      flipped = false;
+      card.classList.remove("flipped");
+      updateCard();
+    }
+
+    function scheduleAutoFlip() {
+      clearTimeout(autoFlipTimeout);
+      const delay = parseInt(autoFlipSelect.value);
+      if (delay > 0 && !quizModeToggle.checked) {
+        autoFlipTimeout = setTimeout(() => {
+          flipCard();
+        }, delay);
+      }
+    }
+
+    function speakJapanese(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ja-JP";
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // ふりがな表示/非表示ボタンのテキスト更新
+    function updateFuriganaButtonText() {
+      if (showFurigana) {
+        furiganaBtn.textContent = "ふりがな非表示";
+      } else {
+        furiganaBtn.textContent = "ふりがな表示";
+      }
+    }
+
+    // イベントハンドラ
+    document.getElementById("nextBtn").addEventListener("click", nextCard);
+    document.getElementById("prevBtn").addEventListener("click", prevCard);
+    document.getElementById("flipBtn").addEventListener("click", flipCard);
+    document.getElementById("furiganaBtn").addEventListener("click", () => {
+      showFurigana = !showFurigana;
+      updateCard();
+    });
+
+    card.addEventListener("click", flipCard);
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        flipCard();
+      }
+    });
+
+    autoFlipSelect.addEventListener("change", scheduleAutoFlip);
+    quizModeToggle.addEventListener("change", updateCard);
+
+    document.getElementById("speakBtn").addEventListener("click", () => {
+      const current = deck[idx];
+      speakJapanese(current.word);
+    });
+
+    document.getElementById("showListBtn").addEventListener("click", () => {
+      const list = document.getElementById("wordList");
+      list.innerHTML = "";
+      deck.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<ruby>${item.word}<rt>${item.reading}</rt></ruby> - ${item.meaning}`;
+        li.style.marginBottom = "8px";
+        list.appendChild(li);
+      });
+      document.getElementById("wordListModal").style.display = "block";
+    });
+
+    document.getElementById("closeListBtn").addEventListener("click", () => {
+      document.getElementById("wordListModal").style.display = "none";
+    });
+
+    updateCard();  // 初期化
+  </script>
+
+</body>
+</html><br>
+<figure style="opacity: 0.1;">東京都福生市 ホサナ日本語学院 <br> Author Mirzaev Firuddin </figure>
