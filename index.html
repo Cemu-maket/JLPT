@@ -116,7 +116,24 @@
       flex-wrap: wrap;
       gap: 12px;
     }
+    .speak-btn {
+      background: #e0e7ff;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
 
+    .speak-btn svg {
+      width: 30px;
+      height: 30px;
+      fill: #4a90e2;
+      transition: transform 0.3s, fill 0.3s;
+    }
+
+    .speak-btn.playing svg {
+      fill: #ff5722;
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
@@ -143,7 +160,13 @@
     <button id="nextBtn">次へ</button>
     <button id="furiganaBtn">ふりがな表示</button>
     <button id="showListBtn">📋 全単語一覧</button>
-    <button id="speakBtn">🔊 発音</button>
+    
+    <button class="speak-btn" id="speakBtn" title="Озвучить">
+      <!-- SVG иконка динамика -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03zM14 3.23v2.06c3.39.49 6 3.39 6 6.71s-2.61 6.22-6 6.71v2.06c4.45-.52 8-4.31 8-8.77s-3.55-8.25-8-8.77z"/>
+      </svg>
+    </button>
   </div>
 
   <div style="margin-top: 20px;">
@@ -444,7 +467,403 @@
   { "word": "かかる", "reading": "かかる", "meaning": "to take (time, money) / लगना / mất (thời gian, tiền) / занимать" },
   { "word": "限る", "reading": "かぎる", "meaning": "to limit / सीमित करना / giới hạn / ограничивать" },
   { "word": "鍵", "reading": "かぎ", "meaning": "key / चाबी / chìa khóa / ключ" },
+  
+  { "word": "現在", "reading": "げんざい", "meaning": "present / hiện tại / 现在 / настоящее время" },
+  { "word": "現実", "reading": "げんじつ", "meaning": "reality / thực tế / 现实 / реальность" },
+  { "word": "現象", "reading": "げんしょう", "meaning": "phenomenon / hiện tượng / 现象 / явление" },
+  { "word": "現状", "reading": "げんじょう", "meaning": "present condition / tình trạng hiện tại / 现状 / текущее состояние" },
+  { "word": "建設", "reading": "けんせつ", "meaning": "construction / xây dựng / 建设 / строительство" },
+  { "word": "現代", "reading": "げんだい", "meaning": "modern times / hiện đại / 现代 / современность" },
+  { "word": "建築", "reading": "けんちく", "meaning": "architecture / kiến trúc / 建筑 / архитектура" },
+  { "word": "見当", "reading": "けんとう", "meaning": "estimate / phỏng đoán / 估计 / предположение" },
+  { "word": "検討", "reading": "けんとう", "meaning": "consideration / xem xét / 检讨 / рассмотрение" },
+  { "word": "現場", "reading": "げんば", "meaning": "scene / hiện trường / 现场 / место происшествия" },
+  { "word": "憲法", "reading": "けんぽう", "meaning": "constitution / hiến pháp / 宪法 / конституция" },
+  { "word": "権利", "reading": "けんり", "meaning": "right / quyền lợi / 权利 / право" },
+  { "word": "後", "reading": "ご", "meaning": "afterwards / sau đó / 后 / потом" },
+  { "word": "語", "reading": "ご", "meaning": "language / ngôn ngữ / 语 / язык" },
+  { "word": "恋", "reading": "こい", "meaning": "love / tình yêu / 恋爱 / любовь" },
+  { "word": "濃い", "reading": "こい", "meaning": "dense / đậm / 浓 / густой" },
+  { "word": "恋人", "reading": "こいびと", "meaning": "lover / người yêu / 恋人 / возлюбленный" },
+  { "word": "幸運", "reading": "こううん", "meaning": "good luck / may mắn / 幸运 / удача" },
+  { "word": "講演", "reading": "こうえん", "meaning": "lecture / bài giảng / 演讲 / лекция" },
+  { "word": "効果", "reading": "こうか", "meaning": "effect / hiệu quả / 效果 / эффект" },
+  { "word": "硬貨", "reading": "こうか", "meaning": "coin / đồng xu / 硬币 / монета" },
+  { "word": "高価", "reading": "こうか", "meaning": "high price / giá cao / 高价 / дорогой" },
+  { "word": "豪華", "reading": "ごうか", "meaning": "gorgeous / lộng lẫy / 豪华 / роскошный" },
+  { "word": "合格", "reading": "ごうかく", "meaning": "success / vượt qua / 合格 / успех" },
+  { "word": "交換", "reading": "こうかん", "meaning": "exchange / trao đổi / 交换 / обмен" },
+  { "word": "航空", "reading": "こうくう", "meaning": "aviation / hàng không / 航空 / авиация" },
+  { "word": "光景", "reading": "こうけい", "meaning": "scene / cảnh tượng / 光景 / зрелище" },
+  { "word": "合計", "reading": "ごうけい", "meaning": "total / tổng / 合计 / сумма" },
+  { "word": "攻撃", "reading": "こうげき", "meaning": "attack / tấn công / 攻击 / атака" },
+  { "word": "貢献", "reading": "こうけん", "meaning": "contribution / đóng góp / 贡献 / вклад" },
+  { "word": "広告", "reading": "こうこく", "meaning": "advertisement / quảng cáo / 广告 / реклама" },
+  { "word": "交際", "reading": "こうさい", "meaning": "association / giao tiếp / 交际 / общение" },
+  { "word": "後者", "reading": "こうしゃ", "meaning": "the latter / cái sau / 后者 / последний" },
+  { "word": "構成", "reading": "こうせい", "meaning": "composition / cấu thành / 构成 / состав" },
+  { "word": "高速", "reading": "こうそく", "meaning": "high speed / tốc độ cao / 高速 / высокая скорость" },
+  { "word": "行動", "reading": "こうどう", "meaning": "behavior / hành động / 行动 / действие" },
+  { "word": "強盗", "reading": "ごうとう", "meaning": "robbery / vụ cướp / 抢劫 / ограбление" },
+  { "word": "幸福", "reading": "こうふく", "meaning": "happiness / hạnh phúc / 幸福 / счастье" },
+  { "word": "公平", "reading": "こうへい", "meaning": "fairness / công bằng / 公平 / справедливость" },
+  { "word": "候補", "reading": "こうほ", "meaning": "candidate / ứng cử / 候选 / кандидат" },
+  { "word": "考慮", "reading": "こうりょ", "meaning": "consideration / xem xét / 考虑 / рассмотрение" },
+  { "word": "越える", "reading": "こえる", "meaning": "to exceed / vượt quá / 超过 / превышать" },
+  { "word": "氷", "reading": "こおり", "meaning": "ice / băng / 冰 / лёд" },
+  { "word": "凍る", "reading": "こおる", "meaning": "to freeze / đóng băng / 冻结 / замерзать" },
+  { "word": "誤解", "reading": "ごかい", "meaning": "misunderstanding / hiểu lầm / 误解 / недоразумение" },
+  { "word": "語学", "reading": "ごがく", "meaning": "language study / ngôn ngữ học / 语学 / изучение языков" },
+  { "word": "呼吸", "reading": "こきゅう", "meaning": "breathing / hô hấp / 呼吸 / дыхание" },
+  { "word": "故郷", "reading": "こきょう", "meaning": "hometown / quê hương / 故乡 / родной город" },
+  { "word": "国語", "reading": "こくご", "meaning": "national language / ngôn ngữ quốc gia / 国语 / национальный язык" },
+  { "word": "黒板", "reading": "こくばん", "meaning": "blackboard / bảng đen / 黑板 / классная доска" },
+  { "word": "克服", "reading": "こくふく", "meaning": "overcoming / vượt qua / 克服 / преодоление" },
+  { "word": "国民", "reading": "こくみん", "meaning": "citizens / công dân / 国民 / народ" },
+  { "word": "穀物", "reading": "こくもつ", "meaning": "grain / ngũ cốc / 谷物 / зерно" },
+  { "word": "ここ", "reading": "ここ", "meaning": "here / đây / 这里 / здесь" },
+  { "word": "腰", "reading": "こし", "meaning": "hip / hông / 腰 / поясница" },
+  { "word": "故障", "reading": "こしょう", "meaning": "breakdown / hỏng hóc / 故障 / поломка" },
+  { "word": "個人", "reading": "こじん", "meaning": "individual / cá nhân / 个人 / индивидуальный" },
+  { "word": "越す", "reading": "こす", "meaning": "to go over / vượt qua / 越过 / переходить" },
+  { "word": "国家", "reading": "こっか", "meaning": "nation / quốc gia / 国家 / государство" },
+  { "word": "国会", "reading": "こっかい", "meaning": "parliament / quốc hội / 国会 / парламент" },
+  { "word": "国境", "reading": "こっきょう", "meaning": "border / biên giới / 国境 / граница" },
+  { "word": "骨折", "reading": "こっせつ", "meaning": "bone fracture / gãy xương / 骨折 / перелом" },
+  { "word": "小包", "reading": "こづつみ", "meaning": "parcel / bưu kiện / 小包 / посылка" },
+  { "word": "事", "reading": "こと", "meaning": "thing / việc / 事 / дело" },
+  { "word": "異なる", "reading": "ことなる", "meaning": "to differ / khác nhau / 不同 / отличаться" },
+  { "word": "諺", "reading": "ことわざ", "meaning": "proverb / tục ngữ / 谚语 / пословица" },
+  { "word": "断る", "reading": "ことわる", "meaning": "to refuse / từ chối / 拒绝 / отказывать" },
+  { "word": "粉", "reading": "こな", "meaning": "flour / bột / 粉 / мука" },
+  { "word": "この", "reading": "この", "meaning": "this / này / 这个 / этот" },
+  { "word": "好み", "reading": "このみ", "meaning": "preference / sở thích / 喜好 / предпочтение" },
+  { "word": "好む", "reading": "このむ", "meaning": "to like / thích / 喜欢 / любить" },
+  { "word": "塵", "reading": "ごみ", "meaning": "dust / rác / 尘 / мусор" },
+  { "word": "小麦", "reading": "こむぎ", "meaning": "wheat / lúa mì / 小麦 / пшеница" },
+  { "word": "ごめんなさい", "reading": "ごめんなさい", "meaning": "sorry / xin lỗi / 对不起 / извините" },
+  { "word": "小屋", "reading": "こや", "meaning": "hut / túp lều / 小屋 / хижина" },
+  { "word": "これら", "reading": "これら", "meaning": "these / những cái này / 这些 / эти" },
+  { "word": "頃", "reading": "ころ", "meaning": "around / khoảng / 时候 / примерно" },
+  { "word": "殺す", "reading": "ころす", "meaning": "to kill / giết / 杀 / убивать" },
+  { "word": "転ぶ", "reading": "ころぶ", "meaning": "to fall / ngã / 摔倒 / падать" },
+  { "word": "今回", "reading": "こんかい", "meaning": "this time / lần này / 这次 / в этот раз" },
+  { "word": "今後", "reading": "こんご", "meaning": "from now on / từ nay / 今后 / в дальнейшем" },
+  { "word": "混雑", "reading": "こんざつ", "meaning": "congestion / đông đúc / 拥挤 / затор" },
+  { "word": "こんなに", "reading": "こんなに", "meaning": "like this / như thế này / 这么 / так, вот так" },
+  { "word": "困難", "reading": "こんなん", "meaning": "difficulty / khó khăn / 困难 / трудность" },
+  { "word": "今日", "reading": "こんにち", "meaning": "today / hôm nay / 今日 / сегодня" },
+  { "word": "こんにちは", "reading": "こんにちは", "meaning": "hello / xin chào / 你好 / здравствуйте" },
+  { "word": "婚約", "reading": "こんやく", "meaning": "engagement / đính hôn / 婚约 / помолвка" },
+  { "word": "混乱", "reading": "こんらん", "meaning": "confusion / hỗn loạn / 混乱 / хаос" },
+  { "word": "差", "reading": "さ", "meaning": "difference / sự khác biệt / 差 / разница" },
+  { "word": "際", "reading": "さい", "meaning": "on the occasion / khi / 时 / случай" },
+  { "word": "最高", "reading": "さいこう", "meaning": "highest / cao nhất / 最高 / наивысший" },
+  { "word": "財産", "reading": "ざいさん", "meaning": "property / tài sản / 财产 / имущество" },
+  { "word": "最終", "reading": "さいしゅう", "meaning": "final / cuối cùng / 最终 / последний" },
+  { "word": "最中", "reading": "さいちゅう", "meaning": "in the middle / trong lúc / 正当中 / в разгаре" },
+  { "word": "最低", "reading": "さいてい", "meaning": "lowest / thấp nhất / 最低 / минимальный" },
+  { "word": "才能", "reading": "さいのう", "meaning": "talent / tài năng / 才能 / талант" },
+  { "word": "裁判", "reading": "さいばん", "meaning": "trial / xét xử / 审判 / суд" },
+  { "word": "材料", "reading": "ざいりょう", "meaning": "materials / nguyên liệu / 材料 / материалы" },
+  { "word": "幸い", "reading": "さいわい", "meaning": "happiness / hạnh phúc / 幸 / счастье" },
+  { "word": "境", "reading": "さかい", "meaning": "border / biên giới / 境 / граница" },
+  { "word": "逆らう", "reading": "さからう", "meaning": "to go against / chống lại / 违反 / идти против" },
+  { "word": "盛り", "reading": "さかり", "meaning": "peak / đỉnh / 盛 / расцвет" },
+  { "word": "作業", "reading": "さぎょう", "meaning": "work / công việc / 作业 / работа" },
+  { "word": "作品", "reading": "さくひん", "meaning": "work / tác phẩm / 作品 / произведение" },
+  { "word": "作物", "reading": "さくもつ", "meaning": "produce / cây trồng / 作物 / урожай" },
+  { "word": "桜", "reading": "さくら", "meaning": "cherry blossom / hoa anh đào / 樱花 / сакура" },
+  { "word": "酒", "reading": "さけ", "meaning": "alcohol / rượu / 酒 / алкоголь" },
+  { "word": "叫ぶ", "reading": "さけぶ", "meaning": "to shout / hét / 呼喊 / кричать" },
+  { "word": "避ける", "reading": "さける", "meaning": "to avoid / tránh / 避开 / избегать" },
+  { "word": "支える", "reading": "ささえる", "meaning": "to support / hỗ trợ / 支撑 / поддерживать" },
+  { "word": "指す", "reading": "さす", "meaning": "to point / chỉ / 指 / указывать" },
+
+  { "word": "克服", "reading": "こくふく", "meaning": "subjugation, conquest / khắc phục / 克服 / преодоление, покорение" },
+  { "word": "国民", "reading": "こくみん", "meaning": "national, people, citizen / quốc dân / 国民 / народ, граждане" },
+  { "word": "穀物", "reading": "こくもつ", "meaning": "grain, cereal / ngũ cốc / 谷物 / зерно, крупа" },
+  { "word": "ここ", "reading": "ここ", "meaning": "here / ở đây / 这里 / здесь" },
+  { "word": "腰", "reading": "こし", "meaning": "hip / eo, hông / 腰 / поясница, бедро" },
+  { "word": "故障", "reading": "こしょう", "meaning": "breakdown, failure / hỏng hóc / 故障 / поломка, неисправность" },
+  { "word": "個人", "reading": "こじん", "meaning": "individual, private person / cá nhân / 个人 / индивидуальный, личный" },
+  { "word": "越す", "reading": "こす", "meaning": "to go over, to cross / vượt qua / 越过 / превышать, переходить" },
+  { "word": "国家", "reading": "こっか", "meaning": "state, country, nation / quốc gia / 国家 / государство, страна" },
+  { "word": "国会", "reading": "こっかい", "meaning": "National Diet, parliament, congress / quốc hội / 国会 / парламент, конгресс" },
+  { "word": "国境", "reading": "こっきょう", "meaning": "national or state border / biên giới quốc gia / 国境 / граница государства" },
+  { "word": "骨折", "reading": "こっせつ", "meaning": "bone fracture / gãy xương / 骨折 / перелом кости" },
+  { "word": "小包", "reading": "こづつみ", "meaning": "parcel, package / bưu phẩm / 小包 / посылка, пакет" },
+  { "word": "事", "reading": "こと", "meaning": "thing, matter, fact, circumstances / sự việc / 事 / дело, факт, обстоятельство" },
+  { "word": "異なる", "reading": "ことなる", "meaning": "to differ, to vary, to disagree / khác nhau / 不同 / отличаться, различаться" },
+  { "word": "諺", "reading": "ことわざ", "meaning": "proverb, maxim / tục ngữ / 谚语 / пословица, поговорка" },
+  { "word": "断る", "reading": "ことわる", "meaning": "to refuse, to decline, to dismiss / từ chối / 拒绝 / отказывать, отклонять" },
+  { "word": "粉", "reading": "こな", "meaning": "flour, meal, powder / bột / 粉 / мука, порошок" },
+  { "word": "この", "reading": "この", "meaning": "this / này / 这个 / этот" },
+  { "word": "好み", "reading": "このみ", "meaning": "liking, taste, choice / sở thích / 爱好 / вкус, предпочтение" },
+  { "word": "好む", "reading": "このむ", "meaning": "to like, to prefer / thích / 喜欢 / любить, предпочитать" },
+  { "word": "塵", "reading": "ごみ", "meaning": "dust, dirt, rubbish / rác / 垃圾 / мусор" },
+  { "word": "小麦", "reading": "こむぎ", "meaning": "wheat / lúa mì / 小麦 / пшеница" },
+  { "word": "ごめんなさい", "reading": "ごめんなさい", "meaning": "I beg your pardon, excuse me / xin lỗi / 对不起 / извините" },
+  { "word": "小屋", "reading": "こや", "meaning": "hut, cabin, shed / túp lều / 小屋 / хижина, сарай" },
+  { "word": "これら", "reading": "これら", "meaning": "these / những cái này / 这些 / эти" },
+  { "word": "頃", "reading": "ころ", "meaning": "time, about, approximately / khoảng / 时候 / время, примерно" },
+  { "word": "殺す", "reading": "ころす", "meaning": "to kill / giết / 杀 / убивать" },
+  { "word": "転ぶ", "reading": "ころぶ", "meaning": "to fall down, to fall over / ngã / 摔倒 / падать" },
+  { "word": "今回", "reading": "こんかい", "meaning": "now, this time, lately / lần này / 这次 / сейчас, в этот раз" },
+  { "word": "今後", "reading": "こんご", "meaning": "from now on, hereafter / từ nay / 今后 / впредь" },
+  { "word": "混雑", "reading": "こんざつ", "meaning": "congestion / đông đúc / 拥挤 / скопление" },
+  { "word": "こんなに", "reading": "こんなに", "meaning": "so, like this / như thế này / 这样 / так, вот так" },
+  { "word": "困難", "reading": "こんなん", "meaning": "difficulty, distress / khó khăn / 困难 / трудность" },
+  { "word": "今日", "reading": "こんにち", "meaning": "today / hôm nay / 今天 / сегодня" },
+  { "word": "こんにちは", "reading": "こんにちは", "meaning": "hello, good day / xin chào / 你好 / привет" },
+  { "word": "婚約", "reading": "こんやく", "meaning": "engagement, betrothal / đính hôn / 订婚 / помолвка" },
+  { "word": "混乱", "reading": "こんらん", "meaning": "disorder, chaos, confusion / hỗn loạn / 混乱 / хаос, беспорядок" },
+  { "word": "桜", "reading": "さくら", "meaning": "cherry blossom, cherry tree / hoa anh đào / 樱花 / сакура, вишня" },
+  { "word": "酒", "reading": "さけ", "meaning": "alcohol, sake / rượu / 酒 / алкоголь, саке" },
+  { "word": "叫ぶ", "reading": "さけぶ", "meaning": "to shout, to cry / hét, la / 喊 / кричать" },
+  { "word": "避ける", "reading": "さける", "meaning": "to avoid (physical contact), to ward off, to avert / tránh / 避开 / избегать" },
+  { "word": "支える", "reading": "ささえる", "meaning": "to support, to hold, to maintain / hỗ trợ / 支撑 / поддерживать" },
+  { "word": "指す", "reading": "さす", "meaning": "to point, to put up umbrella, to play / chỉ, giương / 指 / показывать, указывать" },
+  { "word": "座席", "reading": "ざせき", "meaning": "seat / chỗ ngồi / 座位 / место" },
+  { "word": "誘う", "reading": "さそう", "meaning": "to invite, to ask, to tempt, to lure, to induce / mời, rủ / 邀请 / приглашать, соблазнять" },
+  { "word": "札", "reading": "さつ", "meaning": "token, label, ticket, charm / nhãn, vé / 札 / жетон, билет" },
+  { "word": "作家", "reading": "さっか", "meaning": "author, writer, novelist, artist / tác giả / 作家 / писатель, автор" },
+  { "word": "作曲", "reading": "さっきょく", "meaning": "composition, setting (of music) / sáng tác / 作曲 / композиция, музыка" },
+  { "word": "ざっと", "reading": "ざっと", "meaning": "roughly, in round numbers / đại khái / 大致 / примерно" },
+  { "word": "さっぱり", "reading": "さっぱり", "meaning": "feeling refreshed, feeling relieved, neat, trimmed / sảng khoái / 清爽 / освежающий, аккуратный" },
+  { "word": "さて", "reading": "さて", "meaning": "well, now, then / thế thì / 那么 / ну, тогда" },
+  { "word": "砂漠", "reading": "さばく", "meaning": "desert / sa mạc / 沙漠 / пустыня" },
+
+  { "word": "差別", "reading": "さべつ", "meaning": "discrimination, distinction, differentiation / phân biệt / 歧视 / дискриминация, различие" },
+  { "word": "作法", "reading": "さほう", "meaning": "manners, etiquette, propriety / lễ nghi, phép tắc / 礼仪 / манеры, этикет" },
+  { "word": "様々", "reading": "さまざま", "meaning": "varied, various / đa dạng / 各种各样 / разнообразный" },
+  { "word": "覚ます", "reading": "さます", "meaning": "to awaken / đánh thức / 唤醒 / будить" },
+  { "word": "覚める", "reading": "さめる", "meaning": "to wake, to wake up / tỉnh dậy / 醒 / просыпаться" },
+  { "word": "左右", "reading": "さゆう", "meaning": "left and right, influence, control, domination / trái phải, ảnh hưởng / 左右 / левый и правый, контроль" },
+  { "word": "皿", "reading": "さら", "meaning": "plate, dish / đĩa / 盘子 / тарелка" },
+  { "word": "更に", "reading": "さらに", "meaning": "furthermore, again, more and more, moreover / hơn nữa / 更加 / более того" },
+  { "word": "去る", "reading": "さる", "meaning": "to leave, to go away / rời đi / 离开 / уходить" },
+  { "word": "猿", "reading": "さる", "meaning": "monkey / khỉ / 猴 / обезьяна" },
+  { "word": "騒ぎ", "reading": "さわぎ", "meaning": "uproar, disturbance / ồn ào / 喧闹 / шум, суматоха" },
+  { "word": "参加", "reading": "さんか", "meaning": "participation / tham gia / 参加 / участие" },
+  { "word": "参考", "reading": "さんこう", "meaning": "reference, consultation / tham khảo / 参考 / справка, консультация" },
+  { "word": "賛成", "reading": "さんせい", "meaning": "approval, agreement, support, favor / tán thành / 赞成 / согласие, поддержка" },
+  { "word": "酸素", "reading": "さんそ", "meaning": "oxygen / oxy / 氧 / кислород" },
+  { "word": "散歩", "reading": "さんぽ", "meaning": "walk, stroll / đi dạo / 散步 / прогулка" },
+  
+  { "word": "桜", "reading": "さくら", "meaning": "cherry blossom, cherry tree / hoa anh đào / 樱花 / сакура, вишня" },
+  { "word": "酒", "reading": "さけ", "meaning": "alcohol, sake / rượu / 酒 / алкоголь, саке" },
+  { "word": "叫ぶ", "reading": "さけぶ", "meaning": "to shout, to cry / hét, la / 喊 / кричать" },
+  { "word": "避ける", "reading": "さける", "meaning": "to avoid (physical contact), to ward off, to avert / tránh / 避开 / избегать" },
+  { "word": "支える", "reading": "ささえる", "meaning": "to support, to hold, to maintain / hỗ trợ / 支撑 / поддерживать" },
+  { "word": "指す", "reading": "さす", "meaning": "to point, to put up umbrella, to play / chỉ, giương / 指 / показывать, указывать" },
+  { "word": "座席", "reading": "ざせき", "meaning": "seat / chỗ ngồi / 座位 / место" },
+  { "word": "誘う", "reading": "さそう", "meaning": "to invite, to ask, to tempt, to lure, to induce / mời, rủ / 邀请 / приглашать, соблазнять" },
+  { "word": "札", "reading": "さつ", "meaning": "token, label, ticket, charm / nhãn, vé / 札 / жетон, билет" },
+  { "word": "作家", "reading": "さっか", "meaning": "author, writer, novelist, artist / tác giả / 作家 / писатель, автор" },
+  { "word": "作曲", "reading": "さっきょく", "meaning": "composition, setting (of music) / sáng tác / 作曲 / композиция, музыка" },
+  { "word": "ざっと", "reading": "ざっと", "meaning": "roughly, in round numbers / đại khái / 大致 / примерно" },
+  { "word": "さっぱり", "reading": "さっぱり", "meaning": "feeling refreshed, feeling relieved, neat, trimmed / sảng khoái / 清爽 / освежающий, аккуратный" },
+  { "word": "さて", "reading": "さて", "meaning": "well, now, then / thế thì / 那么 / ну, тогда" },
+  { "word": "砂漠", "reading": "さばく", "meaning": "desert / sa mạc / 沙漠 / пустыня" },
+  { "word": "差別", "reading": "さべつ", "meaning": "discrimination, distinction, differentiation / phân biệt / 歧视 / дискриминация, различие" },
+  { "word": "作法", "reading": "さほう", "meaning": "manners, etiquette, propriety / lễ nghi, phép tắc / 礼仪 / манеры, этикет" },
+  { "word": "様々", "reading": "さまざま", "meaning": "varied, various / đa dạng / 各种各样 / разнообразный" },
+  { "word": "覚ます", "reading": "さます", "meaning": "to awaken / đánh thức / 唤醒 / будить" },
+  { "word": "覚める", "reading": "さめる", "meaning": "to wake, to wake up / tỉnh dậy / 醒 / просыпаться" },
+  { "word": "左右", "reading": "さゆう", "meaning": "left and right, influence, control, domination / trái phải, ảnh hưởng / 左右 / левый и правый, контроль" },
+  { "word": "皿", "reading": "さら", "meaning": "plate, dish / đĩa / 盘子 / тарелка" },
+  { "word": "更に", "reading": "さらに", "meaning": "furthermore, again, more and more, moreover / hơn nữa / 更加 / более того" },
+  { "word": "去る", "reading": "さる", "meaning": "to leave, to go away / rời đi / 离开 / уходить" },
+  { "word": "猿", "reading": "さる", "meaning": "monkey / khỉ / 猴 / обезьяна" },
+  { "word": "騒ぎ", "reading": "さわぎ", "meaning": "uproar, disturbance / ồn ào / 喧闹 / шум, суматоха" },
+  { "word": "参加", "reading": "さんか", "meaning": "participation / tham gia / 参加 / участие" },
+  { "word": "参考", "reading": "さんこう", "meaning": "reference, consultation / tham khảo / 参考 / справка, консультация" },
+  { "word": "賛成", "reading": "さんせい", "meaning": "approval, agreement, support, favor / tán thành / 赞成 / согласие, поддержка" },
+  { "word": "酸素", "reading": "さんそ", "meaning": "oxygen / oxy / 氧 / кислород" },
+  { "word": "散歩", "reading": "さんぽ", "meaning": "walk, stroll / đi dạo / 散步 / прогулка" },
+  { "word": "氏", "reading": "し", "meaning": "family name, lineage, birth / họ / 氏 / фамилия, род" },
+  { "word": "詩", "reading": "し", "meaning": "poem, verse of poetry / bài thơ / 诗 / стихотворение" },
+  { "word": "四", "reading": "し / よん", "meaning": "four / bốn / 四 / четыре" },
+  { "word": "幸せ", "reading": "しあわせ", "meaning": "happiness, good fortune, luck, blessing / hạnh phúc / 幸福 / счастье" },
+  { "word": "ジェット機", "reading": "ジェットき", "meaning": "jet airplane / máy bay phản lực / 喷气机 / реактивный самолет" },
+  { "word": "直に", "reading": "じかに", "meaning": "immediately, readily, directly / ngay lập tức / 直接 / непосредственно" },
+  { "word": "しかも", "reading": "しかも", "meaning": "moreover, furthermore, nevertheless, and yet / hơn nữa / 而且 / более того" },
+  { "word": "叱る", "reading": "しかる", "meaning": "to scold / mắng / 责备 / ругать" },
+  { "word": "式", "reading": "しき", "meaning": "equation, formula, ceremony / công thức, nghi lễ / 式 / формула, церемония" },
+  { "word": "お", "reading": "じき", "meaning": "earnestly, immediately, exactly / ngay lập tức / 直接 / прямо, точно" },
+  { "word": "時期", "reading": "じき", "meaning": "time, season, period / thời kỳ / 时期 / период, время" },
+  { "word": "支給", "reading": "しきゅう", "meaning": "payment, allowance / chi trả, trợ cấp / 支给 / выплата, пособие" },
+  { "word": "しきりに", "reading": "しきりに", "meaning": "frequently, repeatedly, incessantly, eagerly / liên tục / 频繁 / часто, постоянно" },
+  { "word": "刺激", "reading": "しげき", "meaning": "stimulus, impetus, incentive / kích thích / 刺激 / стимул, побуждение" },
+  { "word": "資源", "reading": "しげん", "meaning": "resources / tài nguyên / 资源 / ресурсы" },
+  { "word": "事件", "reading": "じけん", "meaning": "event, affair, incident / sự kiện, vụ việc / 事件 / происшествие" },
+  { "word": "時刻", "reading": "じこく", "meaning": "instant, time, moment / thời khắc / 时刻 / момент, время" },
+  { "word": "自殺", "reading": "じさつ", "meaning": "suicide / tự sát / 自杀 / самоубийство" },
+  { "word": "事実", "reading": "じじつ", "meaning": "fact, truth, reality / sự thật / 事实 / факт, истина" },
+  { "word": "支出", "reading": "ししゅつ", "meaning": "expenditure, expenses / chi phí / 支出 / расходы" },
+  { "word": "事情", "reading": "じじょう", "meaning": "circumstances, consideration, conditions, situation, reasons / hoàn cảnh / 情况 / обстоятельства" },
+  { "word": "詩人", "reading": "しじん", "meaning": "poet / nhà thơ / 诗人 / поэт" },
+  { "word": "自身", "reading": "じしん", "meaning": "by oneself, personally / tự mình / 自身 / сам, лично" },
+  { "word": "沈む", "reading": "しずむ", "meaning": "to sink, to feel depressed / chìm, trầm cảm / 沉没 / тонуть, угнетать" },
+  { "word": "自然", "reading": "しぜん", "meaning": "nature, spontaneous / thiên nhiên / 自然 / природа, естественный" },
+  { "word": "思想", "reading": "しそう", "meaning": "thought, idea / tư tưởng / 思想 / мысль, идея" },
+  { "word": "舌", "reading": "した", "meaning": "tongue / lưỡi / 舌 / язык" },
+  { "word": "次第", "reading": "しだい", "meaning": "order, precedence, circumstances, immediately / thứ tự, tình hình / 次第 / в зависимости, порядок" },
+  { "word": "事態", "reading": "じたい", "meaning": "situation, present state of affairs / tình hình / 事态 / ситуация" },
+  { "word": "従う", "reading": "したがう", "meaning": "to abide (by the rules), to obey, to follow, to accompany / tuân theo / 遵从 / следовать, подчиняться" },
+  { "word": "したがって", "reading": "したがって", "meaning": "therefore, consequently, in accordance with / do đó / 因此 / поэтому" },
+  { "word": "支度", "reading": "したくする", "meaning": "preparation, to prepare / chuẩn bị / 准备 / подготовка" },
+  { "word": "親しい", "reading": "したしい", "meaning": "intimate, close (e.g. friend) / thân thiết / 亲密 / близкий" },
+  { "word": "七", "reading": "しち / なな", "meaning": "seven / bảy / 七 / семь" },
+  { "word": "質", "reading": "しつ", "meaning": "quality, nature (of person) / chất lượng / 质量 / качество" },
+  { "word": "失業", "reading": "しつぎょう", "meaning": "unemployment / thất nghiệp / 失业 / безработица" },
+  { "word": "実験", "reading": "じっけん", "meaning": "experiment / thí nghiệm / 实验 / эксперимент" },
+  { "word": "実現", "reading": "じつげん", "meaning": "implementation, materialization, realization / thực hiện / 实现 / реализация" },
+  { "word": "実施", "reading": "じっし", "meaning": "enforcement, putting into practice / thực thi / 实施 / осуществление" },
+  { "word": "実習", "reading": "じっしゅう", "meaning": "practice, training / thực tập / 实习 / практика" },
+  { "word": "実情", "reading": "じつじょう", "meaning": "actual conditions, circumstances / tình hình thực tế / 实情 / действительное положение" },
+  { "word": "実績", "reading": "じっせき", "meaning": "achievements, track record / thành tích / 实绩 / достижения" },
+  { "word": "失望", "reading": "しつぼう", "meaning": "disappointment / thất vọng / 失望 / разочарование" },
+  { "word": "質問", "reading": "しつもん", "meaning": "question, inquiry / chất vấn / 质问 / вопрос, запрос" },
+  { "word": "支配", "reading": "しはい", "meaning": "rule, control, domination / cai trị, chi phối / 支配 / управление, господство" },
+  { "word": "指導", "reading": "しどう", "meaning": "guidance, leadership / hướng dẫn / 指导 / руководство" },
+  { "word": "死亡", "reading": "しぼう", "meaning": "death / tử vong / 死亡 / смерть" },
+  { "word": "脂肪", "reading": "しぼう", "meaning": "fat / mỡ / 脂肪 / жир" },
+  { "word": "仕舞う", "reading": "しまう", "meaning": "to finish, to put away / kết thúc, cất đi / 收拾 / закончить, убрать" },
+  { "word": "島", "reading": "しま", "meaning": "island / đảo / 岛 / остров" },
+  { "word": "閉まる", "reading": "しまる", "meaning": "to be closed / đóng / 关 / закрываться" },
+  { "word": "占める", "reading": "しめる", "meaning": "to occupy / chiếm / 占据 / занимать" },
+  { "word": "湿度", "reading": "しつど", "meaning": "humidity / độ ẩm / 湿度 / влажность" },
+  { "word": "仕方", "reading": "しかた", "meaning": "way, means, method / cách, phương pháp / 方法 / способ, метод" },
+  { "word": "支店", "reading": "してん", "meaning": "branch (office) / chi nhánh / 分店 / филиал" },
+  { "word": "次々", "reading": "つぎつぎ", "meaning": "one after another / lần lượt, liên tiếp / 一个接一个 / один за другим" },
+  { "word": "指摘", "reading": "してき", "meaning": "pointing out, identification / chỉ ra / 指摘 / указание, замечание" },
+  { "word": "死亡率", "reading": "しぼうりつ", "meaning": "mortality rate / tỷ lệ tử vong / 死亡率 / смертность" },
+  { "word": "施行", "reading": "しこう", "meaning": "enforcement, execution / thực thi / 施行 / выполнение, введение в действие" },
+  { "word": "試合", "reading": "しあい", "meaning": "match, game / trận đấu / 比赛 / матч, игра" },
+  { "word": "始める", "reading": "はじめる", "meaning": "to begin / bắt đầu / 开始 / начинать" },
+  { "word": "仕組み", "reading": "しくみ", "meaning": "structure, mechanism / cơ cấu / 结构 / структура, механизм" },
+  { "word": "死亡者", "reading": "しぼうしゃ", "meaning": "deceased person / người đã mất / 死亡者 / умерший" },
+  { "word": "事情", "reading": "じじょう", "meaning": "circumstances, situation / tình hình / 情况 / обстоятельства" },
+  { "word": "自然界", "reading": "しぜんかい", "meaning": "natural world / giới tự nhiên / 自然界 / природа" },
+  { "word": "事件簿", "reading": "じけんぼ", "meaning": "record of incidents / hồ sơ sự kiện / 事件簿 / журнал происшествий" },
+  { "word": "自動", "reading": "じどう", "meaning": "automatic / tự động / 自动 / автоматический" },
+  { "word": "自動車", "reading": "じどうしゃ", "meaning": "automobile / ô tô / 汽车 / автомобиль" },
+  { "word": "自宅", "reading": "じたく", "meaning": "one's home / nhà riêng / 自宅 / дом" },
+  { "word": "時代", "reading": "じだい", "meaning": "era, period / thời đại / 时代 / эпоха, период" },
+  { "word": "次第に", "reading": "しだいに", "meaning": "gradually / dần dần / 逐渐 / постепенно" },
+  { "word": "仕送り", "reading": "しおくり", "meaning": "remittance / gửi tiền / 汇款 / денежный перевод" },
+  { "word": "死者", "reading": "ししゃ", "meaning": "deceased person / người chết / 死者 / умерший" },
+  { "word": "失恋", "reading": "しつれん", "meaning": "broken heart / thất tình / 失恋 / любовное разочарование" },
+  { "word": "湿る", "reading": "しめる", "meaning": "to be damp / ẩm ướt / 潮湿 / быть влажным" },
+  { "word": "支配者", "reading": "しはいしゃ", "meaning": "ruler, controller / người cai trị / 支配者 / правитель" },
+  { "word": "信号", "reading": "しんごう", "meaning": "signal, traffic light / tín hiệu / 信号 / сигнал, светофор" },
+  { "word": "信じる", "reading": "しんじる", "meaning": "to believe / tin / 相信 / верить" },
+  { "word": "神社", "reading": "じんじゃ", "meaning": "Shinto shrine / đền thờ Thần đạo / 神社 / синтоистское святилище" },
+  { "word": "進学", "reading": "しんがく", "meaning": "advancing to higher education / học tiếp / 升学 / продолжение обучения" },
+  { "word": "進化", "reading": "しんか", "meaning": "evolution / tiến hóa / 进化 / эволюция" },
+  { "word": "新幹線", "reading": "しんかんせん", "meaning": "bullet train / tàu cao tốc / 新干线 / синкансэн, скоростной поезд" },
+  { "word": "信念", "reading": "しんねん", "meaning": "belief, faith / niềm tin / 信念 / вера, убеждение" },
+  { "word": "心配", "reading": "しんぱい", "meaning": "worry, concern / lo lắng / 担心 / беспокойство" },
+  { "word": "進歩", "reading": "しんぽ", "meaning": "progress / tiến bộ / 进步 / прогресс" },
+  { "word": "診察", "reading": "しんさつ", "meaning": "medical examination / khám bệnh / 诊察 / медицинский осмотр" },
+  { "word": "震度", "reading": "しんど", "meaning": "seismic intensity / cường độ động đất / 震度 / сила землетрясения" },
+  { "word": "親友", "reading": "しんゆう", "meaning": "close friend / bạn thân / 亲友 / близкий друг" },
+  { "word": "信頼", "reading": "しんらい", "meaning": "trust, reliance / tin cậy / 信赖 / доверие" },
+  { "word": "真理", "reading": "しんり", "meaning": "truth / chân lý / 真理 / истина" },
+  { "word": "進路", "reading": "しんろ", "meaning": "course, path / con đường / 进路 / курс, направление" },
+  { "word": "水", "reading": "みず", "meaning": "water / nước / 水 / вода" },
+  { "word": "水準", "reading": "すいじゅん", "meaning": "level, standard / tiêu chuẩn / 水平 / уровень, стандарт" },
+  { "word": "水道", "reading": "すいどう", "meaning": "water supply / đường ống nước / 水道 / водопровод" },
+  { "word": "吸う", "reading": "すう", "meaning": "to inhale, to suck / hít, hút / 吸 / вдыхать, сосать" },
+  { "word": "数字", "reading": "すうじ", "meaning": "numeral / con số / 数字 / цифра" },
+  { "word": "少々", "reading": "しょうしょう", "meaning": "a little, just a minute / một chút / 少许 / немного" },
+  { "word": "賞", "reading": "しょう", "meaning": "prize, award / giải thưởng / 奖 / награда" },
+  { "word": "消化", "reading": "しょうか", "meaning": "digestion / tiêu hóa / 消化 / пищеварение" },
+  { "word": "消費", "reading": "しょうひ", "meaning": "consumption / tiêu thụ / 消费 / потребление" },
+  { "word": "証明", "reading": "しょうめい", "meaning": "proof, verification / chứng minh / 证明 / доказательство" },
+  { "word": "照明", "reading": "しょうめい", "meaning": "illumination, lighting / chiếu sáng / 照明 / освещение" },
+  { "word": "象", "reading": "ぞう", "meaning": "elephant / voi / 象 / слон" },
+  { "word": "増加", "reading": "ぞうか", "meaning": "increase / tăng / 增加 / увеличение" },
+  { "word": "像", "reading": "ぞう", "meaning": "image, statue / hình ảnh, tượng / 像 / изображение, статуя" },
+  { "word": "造船", "reading": "ぞうせん", "meaning": "shipbuilding / đóng tàu / 造船 / судостроение" },
+  { "word": "造る", "reading": "つくる", "meaning": "to make, to build / chế tạo / 制造 / создавать, строить" },
+  { "word": "続々", "reading": "ぞくぞく", "meaning": "one after another / liên tục, dồn dập / 接二连三 / один за другим" },
+  { "word": "続ける", "reading": "つづける", "meaning": "to continue / tiếp tục / 继续 / продолжать" },
+  { "word": "卒業", "reading": "そつぎょう", "meaning": "graduation / tốt nghiệp / 毕业 / выпуск" },
+  { "word": "即座に", "reading": "そくざに", "meaning": "immediately / ngay lập tức / 立刻 / немедленно" },
+  { "word": "側面", "reading": "そくめん", "meaning": "side, aspect / mặt bên, khía cạnh / 侧面 / сторона, аспект" },
+  { "word": "反する", "reading": "はんする", "meaning": "to oppose, to be contrary / phản đối / 违反 / противоречить" },
+
+  { "word": "販売", "reading": "はんばい", "meaning": "sale, selling / bán / 销售 / продажа" },
+  { "word": "判断", "reading": "はんだん", "meaning": "judgment, decision / phán đoán / 判断 / суждение, решение" },
+  { "word": "反応", "reading": "はんのう", "meaning": "reaction / phản ứng / 反应 / реакция" },
+  { "word": "反省", "reading": "はんせい", "meaning": "reflection, reconsideration / phản tỉnh / 反省 / самоанализ, размышление" },
+  { "word": "版", "reading": "はん", "meaning": "edition / phiên bản / 版 / издание" },
+  { "word": "犯人", "reading": "はんにん", "meaning": "criminal / phạm nhân / 犯人 / преступник" },
+  { "word": "範囲", "reading": "はんい", "meaning": "range, scope / phạm vi / 范围 / диапазон, пределы" },
+  { "word": "畑", "reading": "はたけ", "meaning": "field, farm / ruộng, nương / 田畑 / поле, ферма" },
+  { "word": "旗", "reading": "はた", "meaning": "flag / cờ / 旗 / флаг" },
+  { "word": "果たす", "reading": "はたす", "meaning": "to accomplish / hoàn thành / 完成 / выполнять" },
+  { "word": "端", "reading": "はし", "meaning": "edge, tip / đầu, mép / 边缘 / край, конец" },
+  { "word": "箸", "reading": "はし", "meaning": "chopsticks / đũa / 筷子 / палочки для еды" },
+  { "word": "橋", "reading": "はし", "meaning": "bridge / cầu / 桥 / мост" },
+  { "word": "果物", "reading": "くだもの", "meaning": "fruit / trái cây / 水果 / фрукты" },
+  { "word": "傍ら", "reading": "かたわら", "meaning": "beside, nearby / bên cạnh / 旁边 / рядом" },
+  { "word": "肩", "reading": "かた", "meaning": "shoulder / vai / 肩 / плечо" },
+  { "word": "肩書き", "reading": "かたがき", "meaning": "title, designation / chức vụ / 职称 / должность, титул" },
+  { "word": "肩代わり", "reading": "かたがわり", "meaning": "taking over / nhận thay / 代替 / принятие на себя" },
+  { "word": "型", "reading": "かた", "meaning": "type, model / kiểu / 型 / тип, модель" },
+  { "word": "堅い", "reading": "かたい", "meaning": "hard, solid / cứng / 坚硬 / твердый" },
+  { "word": "固い", "reading": "かたい", "meaning": "firm, tight / cứng / 坚固 / прочный" },
+  { "word": "片付ける", "reading": "かたづける", "meaning": "to tidy up / dọn dẹp / 收拾 / убирать" },
+  { "word": "肩越し", "reading": "かたごし", "meaning": "over the shoulder / qua vai / 肩越し / через плечо" },
+  { "word": "勝ち", "reading": "かち", "meaning": "victory / thắng / 胜利 / победа" },
+  { "word": "価値", "reading": "かち", "meaning": "value / giá trị / 价值 / ценность" },
+  { "word": "勝手", "reading": "かって", "meaning": "selfishness, one's own convenience / tự tiện / 自便 / эгоизм, удобство" },
+  { "word": "活気", "reading": "かっき", "meaning": "vitality / sôi động / 活力 / живость, энергия" },
+  { "word": "活躍", "reading": "かつやく", "meaning": "activity, great efforts / hoạt động nổi bật / 活跃 / активность, успех" },
+  { "word": "活用", "reading": "かつよう", "meaning": "practical use / sử dụng / 活用 / практическое применение" },
+  { "word": "括弧", "reading": "かっこ", "meaning": "brackets / dấu ngoặc / 括号 / скобки" },
+  { "word": "轄区", "reading": "かっく", "meaning": "jurisdiction / khu vực quản lý / 管辖区 / юрисдикция" },
+  { "word": "活動", "reading": "かつどう", "meaning": "activity / hoạt động / 活动 / деятельность" },
+  { "word": "合格", "reading": "ごうかく", "meaning": "passing (exam) / đạt / 合格 / сдача, успешное прохождение" },
+  { "word": "豪華", "reading": "ごうか", "meaning": "luxurious / sang trọng / 豪华 / роскошный" },
+  { "word": "効く", "reading": "きく", "meaning": "to be effective / hiệu quả / 有效 / быть эффективным" },
+  { "word": "議会", "reading": "ぎかい", "meaning": "parliament / quốc hội / 议会 / парламент" },
+  { "word": "議題", "reading": "ぎだい", "meaning": "agenda / chủ đề cuộc họp / 议题 / повестка дня" },
+  { "word": "議論", "reading": "ぎろん", "meaning": "discussion, argument / tranh luận / 议论 / дискуссия, аргумент" },
+  { "word": "議員", "reading": "ぎいん", "meaning": "member of parliament / nghị sĩ / 议员 / депутат" },
+  { "word": "技術", "reading": "ぎじゅつ", "meaning": "technology, skill / kỹ thuật / 技术 / техника, навык" },
+  { "word": "議事堂", "reading": "ぎじどう", "meaning": "parliament building / tòa nhà nghị viện / 议事堂 / здание парламента" },
+  { "word": "議長", "reading": "ぎちょう", "meaning": "chairman / chủ tịch / 议长 / председатель" },
+  { "word": "偽造", "reading": "ぎぞう", "meaning": "forgery / giả mạo / 伪造 / подделка" },
+  { "word": "義務", "reading": "ぎむ", "meaning": "duty, obligation / nghĩa vụ / 义务 / обязанность" },
+  { "word": "議事録", "reading": "ぎじろく", "meaning": "minutes of meeting / biên bản cuộc họp / 会议记录 / протокол заседания" },
+  { "word": "義理", "reading": "ぎり", "meaning": "duty, obligation / nghĩa lý / 义理 / долг, обязательство" },
+  { "word": "議題決定", "reading": "ぎだいけってい", "meaning": "decision on agenda / quyết định chủ đề / 议题决定 / принятие решения по повестке" },
+  { "word": "疑問", "reading": "ぎもん", "meaning": "question, doubt / nghi vấn / 疑问 / сомнение, вопрос" },
+  { "word": "義兄", "reading": "ぎけい", "meaning": "brother-in-law / anh/em trai kết hôn / 义兄 / свояк" },
+  { "word": "疑似", "reading": "ぎじ", "meaning": "pseudo-, imitation / giả / 疑似 / мнимый, псевдо" },
+  { "word": "議定", "reading": "ぎてい", "meaning": "resolution / nghị quyết / 议定 / резолюция" },
+  { "word": "議題提案", "reading": "ぎだいていあん", "meaning": "proposal of agenda / đề xuất chủ đề / 议题提案 / предложение по повестке дня" },
+  { "word": "疑惑", "reading": "ぎわく", "meaning": "suspicion / nghi ngờ / 疑惑 / подозрение" },
+  { "word": "技師", "reading": "ぎし", "meaning": "engineer / kỹ sư / 技师 / инженер" },
+  { "word": "義父", "reading": "ぎふ", "meaning": "father-in-law / phụ vợ/chồng / 继父 / тесть" },
+  { "word": "疑似科学", "reading": "ぎじかがく", "meaning": "pseudoscience / giả khoa học / 疑似科学 / псевдонаука" },
+  { "word": "議会承認", "reading": "ぎかいしょうにん", "meaning": "parliament approval / sự chấp thuận của quốc hội / 议会承认 / одобрение парламента" },
+  { "word": "義母", "reading": "ぎぼ", "meaning": "mother-in-law / mẹ vợ/chồng / 继母 / теща/свекровь" },
+  { "word": "疑心", "reading": "ぎしん", "meaning": "suspicion, distrust / nghi ngờ / 疑心 / подозрение, недоверие" },
+  { "word": "技法", "reading": "ぎほう", "meaning": "technique / kỹ thuật / 技法 / методика, техника" },
+  { "word": "議会制度", "reading": "ぎかいせいど", "meaning": "parliamentary system / hệ thống nghị viện / 议会制度 / парламентская система" },
+  { "word": "義務教育", "reading": "ぎむきょういく", "meaning": "compulsory education / giáo dục bắt buộc / 义务教育 / обязательное образование" },
+  { "word": "疑惑者", "reading": "ぎわくしゃ", "meaning": "suspect / nghi phạm / 疑惑者 / подозреваемый" },
+  { "word": "義務感", "reading": "ぎむかん", "meaning": "sense of duty / cảm giác nghĩa vụ / 义务感 / чувство долга" },
+  { "word": "義手", "reading": "ぎしゅ", "meaning": "artificial hand / tay giả / 义手 / протез руки" },
+  { "word": "義足", "reading": "ぎそく", "meaning": "prosthetic leg / chân giả / 义足 / протез ноги" },
 ]
+
 
 
     let currentDeck = deckN4;
@@ -461,6 +880,7 @@
     const autoFlipSelect = document.getElementById("autoFlipSelect");
     const quizModeToggle = document.getElementById("quizModeToggle");
     const furiganaBtn = document.getElementById("furiganaBtn");
+     const speakBtn = document.getElementById("speakBtn");
 
     function updateCard() {
       const current = currentDeck[idx];
@@ -573,9 +993,41 @@
     });
 
     updateCard();
+        // --- Озвучка ---
+    function speakJapanese(text) {
+      const synth = window.speechSynthesis;
+      let utterance = new SpeechSynthesisUtterance(text);
+
+      const voices = synth.getVoices();
+      let jpVoice = voices.find(v => v.lang === "ja-JP");
+
+      if (jpVoice) {
+        utterance.voice = jpVoice;
+      }
+
+      utterance.lang = "ja-JP";
+      utterance.pitch = 0.9;   // 
+      utterance.rate = 0.85;   // 
+      utterance.volume = 1;    // 
+
+      
+      speakBtn.classList.add("playing");
+      utterance.onend = () => {
+        speakBtn.classList.remove("playing");
+      };
+
+      synth.cancel();
+      synth.speak(utterance);
+    }
+
+    
+    speechSynthesis.onvoiceschanged = () => {};
+
+    speakBtn.addEv
   </script>
 
   <figure style="opacity: 0.1;"> <br> Author Mirzaev Firuddin</figure>
 </body>
 </html>
+
 
