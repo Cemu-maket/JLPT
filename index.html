@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JLPT 単語カード</title>
   <style>
-
     body {
       font-family: "Noto Sans JP", sans-serif;
       background: #eef2ff;
@@ -122,14 +121,12 @@
       cursor: pointer;
       margin-left: 10px;
     }
-
     .speak-btn svg {
       width: 30px;
       height: 30px;
       fill: #4a90e2;
       transition: transform 0.3s, fill 0.3s;
     }
-
     .speak-btn.playing svg {
       fill: #ff5722;
       transform: scale(1.2);
@@ -160,27 +157,11 @@
     <button id="nextBtn">次へ</button>
     <button id="furiganaBtn">ふりがな表示</button>
     <button id="showListBtn">📋 全単語一覧</button>
-    
     <button class="speak-btn" id="speakBtn" title="Озвучить">
-      <!-- SVG иконка динамика -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03zM14 3.23v2.06c3.39.49 6 3.39 6 6.71s-2.61 6.22-6 6.71v2.06c4.45-.52 8-4.31 8-8.77s-3.55-8.25-8-8.77z"/>
       </svg>
     </button>
-  </div>
-
-  <div style="margin-top: 20px;">
-    <select id="autoFlipSelect">
-      <option value="0">⏱️ 自動フリップ: オフ</option>
-      <option value="3000">3秒</option>
-      <option value="5000">5秒</option>
-      <option value="7000">7秒</option>
-    </select>
-    <label><input type="checkbox" id="quizModeToggle"> テストモード</label>
-    <select id="levelSelect" style="margin-left: 12px;">
-      <option value="n4">JLPT N4</option>
-      <option value="n3">JLPT N3</option>
-    </select>
   </div>
 
   <!-- 単語一覧モーダル -->
@@ -1983,21 +1964,18 @@
 
 
 
-    let currentDeck = deckN4;
+  let currentDeck = deckN4;
     let idx = 0;
     let flipped = false;
     let showFurigana = true;
-    let autoFlipTimeout = null;
 
     const card = document.getElementById("card");
     const wordArea = document.getElementById("wordArea");
     const readingArea = document.getElementById("readingArea");
     const meaningArea = document.getElementById("meaningArea");
     const indexInfo = document.getElementById("indexInfo");
-    const autoFlipSelect = document.getElementById("autoFlipSelect");
-    const quizModeToggle = document.getElementById("quizModeToggle");
     const furiganaBtn = document.getElementById("furiganaBtn");
-     const speakBtn = document.getElementById("speakBtn");
+    const speakBtn = document.getElementById("speakBtn");
 
     function updateCard() {
       const current = currentDeck[idx];
@@ -2005,22 +1983,12 @@
         ? `<ruby>${current.word}<rt>${current.reading}</rt></ruby>`
         : current.word;
       readingArea.textContent = showFurigana ? "" : current.reading;
-
-      if (quizModeToggle.checked) {
-        meaningArea.textContent = "";
-        card.classList.remove("flipped");
-        flipped = false;
-      } else {
-        meaningArea.textContent = current.meaning;
-      }
-
+      meaningArea.textContent = current.meaning;
       indexInfo.textContent = `${idx + 1} / ${currentDeck.length}`;
-      scheduleAutoFlip();
       updateFuriganaButtonText();
     }
 
     function flipCard() {
-      if (quizModeToggle.checked) return;
       flipped = !flipped;
       card.classList.toggle("flipped", flipped);
     }
@@ -2039,21 +2007,20 @@
       updateCard();
     }
 
-    function scheduleAutoFlip() {
-      clearTimeout(autoFlipTimeout);
-      const delay = parseInt(autoFlipSelect.value);
-      if (delay > 0 && !quizModeToggle.checked) {
-        autoFlipTimeout = setTimeout(() => {
-          flipCard();
-        }, delay);
-      }
-    }
-
     function speakJapanese(text) {
-      const utterance = new SpeechSynthesisUtterance(text);
+      const synth = window.speechSynthesis;
+      let utterance = new SpeechSynthesisUtterance(text);
+      const voices = synth.getVoices();
+      let jpVoice = voices.find(v => v.lang === "ja-JP");
+      if (jpVoice) utterance.voice = jpVoice;
       utterance.lang = "ja-JP";
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
+      utterance.pitch = 0.9;
+      utterance.rate = 0.85;
+      utterance.volume = 1;
+      speakBtn.classList.add("playing");
+      utterance.onend = () => speakBtn.classList.remove("playing");
+      synth.cancel();
+      synth.speak(utterance);
     }
 
     function updateFuriganaButtonText() {
@@ -2067,7 +2034,6 @@
       showFurigana = !showFurigana;
       updateCard();
     });
-
     card.addEventListener("click", flipCard);
     document.addEventListener("keydown", (e) => {
       if (e.code === "Space") {
@@ -2075,15 +2041,10 @@
         flipCard();
       }
     });
-
-    autoFlipSelect.addEventListener("change", scheduleAutoFlip);
-    quizModeToggle.addEventListener("change", updateCard);
-
     document.getElementById("speakBtn").addEventListener("click", () => {
       const current = currentDeck[idx];
       speakJapanese(current.word);
     });
-
     document.getElementById("showListBtn").addEventListener("click", () => {
       const list = document.getElementById("wordList");
       list.innerHTML = "";
@@ -2095,57 +2056,17 @@
       });
       document.getElementById("wordListModal").style.display = "block";
     });
-
     document.getElementById("closeListBtn").addEventListener("click", () => {
       document.getElementById("wordListModal").style.display = "none";
     });
-
-    document.getElementById("levelSelect").addEventListener("change", (e) => {
-      const selected = e.target.value;
-      currentDeck = selected === "n3" ? deckN3 : deckN4;
-      idx = 0;
-      flipped = false;
-      card.classList.remove("flipped");
-      updateCard();
-    });
-
     updateCard();
-        // --- Озвучка ---
-    function speakJapanese(text) {
-      const synth = window.speechSynthesis;
-      let utterance = new SpeechSynthesisUtterance(text);
-
-      const voices = synth.getVoices();
-      let jpVoice = voices.find(v => v.lang === "ja-JP");
-
-      if (jpVoice) {
-        utterance.voice = jpVoice;
-      }
-
-      utterance.lang = "ja-JP";
-      utterance.pitch = 0.9;   // 
-      utterance.rate = 0.85;   // 
-      utterance.volume = 1;    // 
-
-      
-      speakBtn.classList.add("playing");
-      utterance.onend = () => {
-        speakBtn.classList.remove("playing");
-      };
-
-      synth.cancel();
-      synth.speak(utterance);
-    }
-
-    
-    speechSynthesis.onvoiceschanged = () => {};
-
-    speakBtn.addEv
   </script>
 
-  <figure style="opacity: 0.1;"> <br> Author Mirzaev Firuddin v3</figure>
+  <figure style="opacity: 0.1;"> <br> Author Mirzaev Firuddin</figure>
 </body>
 </html>
+
+
 
 
 
